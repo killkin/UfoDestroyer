@@ -17,10 +17,6 @@ boot_splash/bg_color=Color(0, 0.283016, 0.424049, 1)
 boot_splash/image="res://Sprites/index.png"
 config/icon="res://Sprites/Moon.png"
 
-[autoload]
-
-YandexSDK="*res://addons/godot-yandex-games-sdk/yandex_sdk.gd"
-
 [display]
 
 window/size/viewport_width=960
@@ -28,10 +24,6 @@ window/size/viewport_height=560
 window/size/mode=1
 window/size/initial_position_type=0
 window/size/resizable=false
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot-yandex-games-sdk/plugin.cfg")
 
 [global_group]
 
