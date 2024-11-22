@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds0en2qut1r7l"]
+
+[ext_resource type="Script" path="res://Scripts/character.gd" id="1_7xau5"]
+[ext_resource type="SpriteFrames" uid="uid://dla470g3ex5v1" path="res://Sprites/Character.tres" id="1_ap7kq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u03cu"]
+radius = 30.4138
+
+[node name="Character" type="CharacterBody2D"]
+input_pickable = true
+script = ExtResource("1_7xau5")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_ap7kq")
+animation = &"Fire"
+frame = 1
+frame_progress = 0.345999
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u03cu")
+
+[node name="ShootTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="BulletMuzzle" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -31)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

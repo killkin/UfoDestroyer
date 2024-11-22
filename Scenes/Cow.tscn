@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpi1rkvpwfuh0"]
+
+[ext_resource type="Script" path="res://Scripts/cow.gd" id="1_oel1l"]
+[ext_resource type="SpriteFrames" uid="uid://bt2g60wooakb3" path="res://Sprites/cow_sprites.tres" id="2_oajv8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n6kdn"]
+radius = 29.0
+height = 90.0
+
+[node name="Cow" type="CharacterBody2D" groups=["target"]]
+modulate = Color(0.69158, 0.816039, 0.980949, 1)
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_oel1l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_n6kdn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(4, 0)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("2_oajv8")
+animation = &"Eat"

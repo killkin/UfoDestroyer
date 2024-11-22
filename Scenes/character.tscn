@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://ds0en2qut1r7l"]
+
+[ext_resource type="Script" path="res://Scripts/character.gd" id="1_7xau5"]
+[ext_resource type="SpriteFrames" uid="uid://dla470g3ex5v1" path="res://Sprites/Character.tres" id="1_ap7kq"]
+[ext_resource type="PackedScene" uid="uid://dabqyr5yhxl4f" path="res://Scenes/Intro.tscn" id="3_eg8d0"]
+[ext_resource type="Texture2D" uid="uid://dkkcq43sd170t" path="res://Sprites/Moon.png" id="4_ldd6d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u03cu"]
+radius = 30.4138
+
+[sub_resource type="Gradient" id="Gradient_ljeif"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e61qo"]
+gradient = SubResource("Gradient_ljeif")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_e7jmb"]
+albedo_texture = SubResource("GradientTexture2D_e61qo")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ydnw5"]
+material = SubResource("ORMMaterial3D_e7jmb")
+
+[sub_resource type="Gradient" id="Gradient_8xk1v"]
+colors = PackedColorArray(0.195117, 0.169604, 0.507687, 1, 0.129558, 0.129558, 0.129558, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_evrff"]
+gradient = SubResource("Gradient_8xk1v")
+fill_from = Vector2(0.512821, 0.803419)
+fill_to = Vector2(0.551282, 0)
+
+[node name="Character" type="CharacterBody2D" groups=["target"]]
+input_pickable = true
+script = ExtResource("1_7xau5")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.921857, 0.918637, 0.979332, 1)
+sprite_frames = ExtResource("1_ap7kq")
+animation = &"Fire"
+frame = 1
+frame_progress = 0.345999
+speed_scale = 5.0
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_u03cu")
+
+[node name="ShootTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.8
+
+[node name="BulletMuzzle" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 10
+position = Vector2(0, -14)
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
+position = Vector2(0, -173)
+
+[node name="Intro" parent="Camera2D" instance=ExtResource("3_eg8d0")]
+offset_left = -478.0
+offset_top = -279.0
+offset_right = -478.0
+offset_bottom = -279.0
+
+[node name="Moon" type="Sprite2D" parent="Camera2D"]
+position = Vector2(334, -158)
+scale = Vector2(0.525, 0.525)
+texture = ExtResource("4_ldd6d")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Camera2D"]
+z_index = -100
+position = Vector2(3, -65)
+scale = Vector2(1900, 800)
+mesh = SubResource("QuadMesh_ydnw5")
+texture = SubResource("GradientTexture2D_evrff")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwshujec3j6r8"]
+
+[ext_resource type="PackedScene" uid="uid://ds0en2qut1r7l" path="res://Scenes/character.tscn" id="3_qrhxf"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_yv6oh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlsdc"]
+size = Vector2(1, 1.436)
+
+[node name="Main" type="Node2D"]
+
+[node name="Character" parent="." instance=ExtResource("3_qrhxf")]
+position = Vector2(26, 287)
+speed = null
+gravity = null
+jump_force = null
+min_x = null
+max_x = null
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(670, 557)
+scale = Vector2(2331.62, 79.5)
+mesh = SubResource("QuadMesh_yv6oh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D/StaticBody2D"]
+position = Vector2(0.000857771, 0.238993)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_xlsdc")

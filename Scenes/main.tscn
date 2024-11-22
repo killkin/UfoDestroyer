@@ -1,0 +1,249 @@
+[gd_scene load_steps=20 format=3 uid="uid://dwshujec3j6r8"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_v5v6q"]
+[ext_resource type="PackedScene" uid="uid://bpi1rkvpwfuh0" path="res://Scenes/Cow.tscn" id="2_bd7b0"]
+[ext_resource type="PackedScene" uid="uid://cn2fejv6qxmrs" path="res://Scenes/ufo_spawner.tscn" id="3_k8h64"]
+[ext_resource type="PackedScene" uid="uid://ds0en2qut1r7l" path="res://Scenes/character.tscn" id="3_qrhxf"]
+[ext_resource type="Texture2D" uid="uid://c1v84f5lu61ln" path="res://Sprites/House.png" id="6_te6ds"]
+[ext_resource type="Texture2D" uid="uid://cfl04tr5h6g8o" path="res://Sprites/Tree1.png" id="7_4cmvt"]
+[ext_resource type="Texture2D" uid="uid://b2b70w4v60g6q" path="res://Sprites/Round.png" id="7_fm5pk"]
+[ext_resource type="Texture2D" uid="uid://ddyim33p46u8g" path="res://Sprites/Barn.png" id="8_1mnev"]
+[ext_resource type="Texture2D" uid="uid://cpe7ixmxfp41y" path="res://Sprites/grass.png" id="8_081jk"]
+[ext_resource type="Texture2D" uid="uid://qs37nu3oq1os" path="res://Sprites/Tree2.png" id="10_y61f2"]
+[ext_resource type="Texture2D" uid="uid://bsn6lwvhqtbh0" path="res://Sprites/hills.png" id="11_fkgb5"]
+[ext_resource type="Texture2D" uid="uid://cvaxxiwek0i4p" path="res://Sprites/sign.png" id="12_5w66l"]
+[ext_resource type="AudioStream" uid="uid://daajo6hjx077n" path="res://Sound/music.mp3" id="13_bush7"]
+[ext_resource type="Texture2D" uid="uid://csfuk76aii76d" path="res://Sprites/Truck.png" id="14_h2hjm"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_46pob"]
+albedo_color = Color(0.176154, 0.34036, 0.103067, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_yv6oh"]
+material = SubResource("ORMMaterial3D_46pob")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlsdc"]
+size = Vector2(1, 0.72956)
+
+[sub_resource type="Sky" id="Sky_hsq3f"]
+
+[sub_resource type="Environment" id="Environment_ygv6p"]
+background_mode = 3
+background_color = Color(0, 0.483537, 0.510257, 1)
+sky = SubResource("Sky_hsq3f")
+sky_custom_fov = 68.0
+ambient_light_color = Color(0.130173, 0.164365, 0.602033, 1)
+glow_blend_mode = 1
+adjustment_enabled = true
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_v5v6q")
+
+[node name="Character" parent="." instance=ExtResource("3_qrhxf")]
+position = Vector2(-21, 443)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0.172549, 0.0705882, 1)
+z_index = -1
+position = Vector2(205, 557)
+scale = Vector2(3500, 79.5)
+mesh = SubResource("QuadMesh_yv6oh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D"]
+collision_layer = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D/StaticBody2D"]
+position = Vector2(0.00085777, -0.0377359)
+shape = SubResource("RectangleShape2D_xlsdc")
+
+[node name="UFO spawner" parent="." instance=ExtResource("3_k8h64")]
+position = Vector2(665, 243)
+
+[node name="Cow" parent="." instance=ExtResource("2_bd7b0")]
+position = Vector2(382, 484)
+
+[node name="Cow2" parent="." instance=ExtResource("2_bd7b0")]
+position = Vector2(840, 484)
+
+[node name="Cow3" parent="." instance=ExtResource("2_bd7b0")]
+position = Vector2(1190, 484)
+
+[node name="House" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(-276, 428)
+scale = Vector2(0.605, 0.605)
+texture = ExtResource("6_te6ds")
+
+[node name="PointLight2D" type="PointLight2D" parent="House"]
+position = Vector2(92.562, 51.2397)
+scale = Vector2(2.84091, 2.84091)
+color = Color(1, 1, 0.188235, 1)
+energy = 0.5
+texture = ExtResource("7_fm5pk")
+texture_scale = 1.71
+
+[node name="PointLight2D2" type="PointLight2D" parent="House"]
+position = Vector2(-97.5206, 52.8926)
+scale = Vector2(2.84091, 2.84091)
+color = Color(1, 1, 0.188235, 1)
+energy = 0.5
+texture = ExtResource("7_fm5pk")
+texture_scale = 1.71
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ygv6p")
+
+[node name="Grass" type="Parallax2D" parent="."]
+z_index = 50
+scroll_scale = Vector2(0.95, 0.95)
+scroll_offset = Vector2(-88, 16)
+repeat_times = 20
+
+[node name="Grass2" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(-799.308, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass3" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(-435.308, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass4" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(-73.3077, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass5" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(289.385, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass6" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(653.385, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass7" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(1015.38, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass8" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(1376.69, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass9" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(1740.69, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass10" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(2102.69, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass11" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(2465.38, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass12" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(2829.38, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Grass13" type="Sprite2D" parent="Grass"]
+modulate = Color(0.215664, 0.409318, 0.651834, 1)
+position = Vector2(3191.38, 524)
+scale = Vector2(0.307692, 0.307692)
+texture = ExtResource("8_081jk")
+
+[node name="Tree2" type="Sprite2D" parent="Grass"]
+position = Vector2(291, 495)
+texture = ExtResource("7_4cmvt")
+
+[node name="Tree3" type="Sprite2D" parent="Grass"]
+position = Vector2(798, 502)
+texture = ExtResource("10_y61f2")
+
+[node name="Barn" type="Sprite2D" parent="."]
+modulate = Color(0.249256, 0.38114, 0.597191, 1)
+z_index = 14
+position = Vector2(1470, 318)
+scale = Vector2(2.675, 2.675)
+texture = ExtResource("8_1mnev")
+
+[node name="Tree1" type="Sprite2D" parent="."]
+position = Vector2(-398, 468)
+scale = Vector2(1.36328, 1.36328)
+texture = ExtResource("7_4cmvt")
+
+[node name="Tree2" type="Sprite2D" parent="."]
+position = Vector2(-506, 478)
+scale = Vector2(1.14648, 1.11914)
+texture = ExtResource("7_4cmvt")
+
+[node name="Tree3" type="Sprite2D" parent="."]
+position = Vector2(-604, 471)
+scale = Vector2(1.3623, 1.30957)
+texture = ExtResource("7_4cmvt")
+flip_h = true
+
+[node name="Tree5" type="Sprite2D" parent="."]
+position = Vector2(-649, 471)
+scale = Vector2(1.36328, 1.36328)
+texture = ExtResource("7_4cmvt")
+
+[node name="Tree7" type="Sprite2D" parent="."]
+position = Vector2(-742, 477)
+scale = Vector2(1.27881, 1.13916)
+texture = ExtResource("7_4cmvt")
+flip_h = true
+
+[node name="Tree4" type="Sprite2D" parent="."]
+position = Vector2(-465, 484)
+texture = ExtResource("10_y61f2")
+
+[node name="Tree6" type="Sprite2D" parent="."]
+position = Vector2(-798, 485)
+texture = ExtResource("10_y61f2")
+flip_h = true
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+
+[node name="Bg" type="Sprite2D" parent="Parallax2D"]
+modulate = Color(0.354864, 0.502756, 0.692064, 1)
+z_index = -80
+position = Vector2(265, 387)
+scale = Vector2(3, 1.14474)
+texture = ExtResource("11_fkgb5")
+
+[node name="Sign" type="Sprite2D" parent="Parallax2D"]
+modulate = Color(0.316345, 0.310233, 0.508737, 1)
+z_index = -1
+position = Vector2(-123, 488)
+texture = ExtResource("12_5w66l")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(107, 399)
+stream = ExtResource("13_bush7")
+autoplay = true
+max_distance = 50000.0
+
+[node name="Truck" type="Sprite2D" parent="."]
+modulate = Color(0.242533, 0.360749, 0.40821, 1)
+position = Vector2(1725, 434.25)
+scale = Vector2(0.447266, 0.520508)
+texture = ExtResource("14_h2hjm")

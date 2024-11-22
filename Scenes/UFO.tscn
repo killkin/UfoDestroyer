@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgqe42fshrelj"]
+
+[ext_resource type="Script" path="res://Scripts/ufo.gd" id="1_jufqx"]
+[ext_resource type="SpriteFrames" uid="uid://fahmifjsrvqk" path="res://Sprites/Ufo.tres" id="2_imxvh"]
+[ext_resource type="AudioStream" uid="uid://0wptrcufjsx0" path="res://Sound/LiftUp.wav" id="2_jbcmb"]
+[ext_resource type="Texture2D" uid="uid://b2b70w4v60g6q" path="res://Sprites/Round.png" id="3_gn7c6"]
+[ext_resource type="Texture2D" uid="uid://cognwo5aatv8d" path="res://Sprites/LichtShaft.png" id="4_1hwje"]
+[ext_resource type="AudioStream" uid="uid://lyltwbtr25ll" path="res://Sound/Fall.wav" id="4_1td0x"]
+
+[node name="Ufo" type="CharacterBody2D" groups=["ufo"]]
+collision_layer = 2
+collision_mask = 8
+input_pickable = true
+script = ExtResource("1_jufqx")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-2.48856, 10.8937)
+scale = Vector2(0.540221, 0.580752)
+target_position = Vector2(0, 1500)
+collision_mask = 21
+hit_from_inside = true
+
+[node name="UfoAnimation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_imxvh")
+animation = &"Idle"
+
+[node name="LiftUp" type="AudioStreamPlayer" parent="UfoAnimation"]
+stream = ExtResource("2_jbcmb")
+volume_db = -25.0
+
+[node name="Fall" type="AudioStreamPlayer" parent="UfoAnimation"]
+stream = ExtResource("4_1td0x")
+
+[node name="Demage" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_imxvh")
+animation = &"Demage"
+
+[node name="DamageParticles" type="CPUParticles2D" parent="Demage"]
+position = Vector2(0, 16)
+scale = Vector2(0.5, 0.5)
+emitting = false
+explosiveness = 0.5
+randomness = 0.52
+emission_shape = 3
+emission_rect_extents = Vector2(24.235, 1)
+spread = 90.88
+scale_amount_max = 5.0
+color = Color(0.156863, 0.658824, 0.454902, 1)
+
+[node name="BulletCollision" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(-2.48856, -2.85564)
+scale = Vector2(0.540221, 0.580752)
+polygon = PackedVector2Array(82, -10, 121, -3, 152, 27, 116, 54, 36.0752, 65.1838, -85, 64, -165, 33, -158, 15, -128, -5, -90, -12, -60, -35, -37, -47, 2, -49, 42, -39)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-8, 16)
+scale = Vector2(4.55044, 1)
+color = Color(2.69532e-06, 0.659993, 0.587136, 1)
+energy = 0.29
+texture = ExtResource("3_gn7c6")
+texture_scale = 1.49
+
+[node name="CatchLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(-8, 185.58)
+rotation = 0.0349066
+scale = Vector2(4.55044, 8.11325)
+color = Color(2.69532e-06, 0.659993, 0.587136, 1)
+energy = 0.29
+texture = ExtResource("4_1hwje")
+texture_scale = 1.49
+
+[node name="Sprite2D" type="Sprite2D" parent="CatchLight"]
+modulate = Color(0, 0.658824, 0.588235, 0.462745)
+position = Vector2(1.96451, -0.233337)
+scale = Vector2(0.96012, 1.47596)
+texture = ExtResource("4_1hwje")
+
+[node name="CatchLight_Timer" type="Timer" parent="CatchLight"]
+wait_time = 0.5
+
+[connection signal="timeout" from="CatchLight/CatchLight_Timer" to="." method="_on_catch_light_timer_timeout"]

@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8cxgm4kays3b"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_4hh3r"]
+[ext_resource type="AudioStream" uid="uid://i5178s13sigt" path="res://Sound/Gun.wav" id="2_w2t0v"]
+
+[sub_resource type="Curve" id="Curve_1iyai"]
+_data = [Vector2(0.00530504, 0), 0.0, 0.0, 0, 0, Vector2(0.0503979, 0.314739), 0.0, 0.0, 0, 0, Vector2(0.164456, 0.0885363), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_4rgwy"]
+offsets = PackedFloat32Array(0, 0.197708, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.0463577, 0.0463577, 0.0463577, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_porkx"]
+offsets = PackedFloat32Array(0, 0.151862)
+colors = PackedColorArray(1, 1, 1, 1, 0.442911, 0.442911, 0.442911, 1)
+
+[node name="Bullet" type="Node2D"]
+z_index = 10
+script = ExtResource("1_4hh3r")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -500)
+collision_mask = 2
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+z_index = 10
+position = Vector2(1, -28)
+amount = 10
+explosiveness = 1.0
+randomness = 0.21
+emission_shape = 1
+emission_sphere_radius = 10.2
+direction = Vector2(0, -1)
+spread = 10.45
+gravity = Vector2(0, -500)
+initial_velocity_min = 5.0
+initial_velocity_max = 800.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+radial_accel_min = -60.0
+radial_accel_max = 60.0
+tangential_accel_min = -100.0
+tangential_accel_max = 69.7
+angle_min = -7.3
+scale_amount_min = 3.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_1iyai")
+color = Color(1, 0.828684, 0.307197, 1)
+color_ramp = SubResource("Gradient_4rgwy")
+
+[node name="Cloud" type="CPUParticles2D" parent="."]
+z_index = 10
+position = Vector2(-2, -44)
+amount = 10
+explosiveness = 1.0
+randomness = 0.21
+emission_shape = 2
+emission_sphere_radius = 10.2
+direction = Vector2(0, -1)
+spread = 10.45
+gravity = Vector2(0, -71.02)
+initial_velocity_min = 5.0
+initial_velocity_max = 29.29
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = 1.0
+radial_accel_min = -60.0
+radial_accel_max = 60.0
+tangential_accel_min = -100.0
+tangential_accel_max = 69.7
+angle_min = -7.3
+angle_max = 370.9
+scale_amount_min = 30.0
+scale_amount_max = 142.65
+scale_amount_curve = SubResource("Curve_1iyai")
+color = Color(0.628836, 0.616099, 0.595037, 1)
+color_ramp = SubResource("Gradient_porkx")
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="Gun" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_w2t0v")
+volume_db = -7.729
+autoplay = true
+
+[connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]

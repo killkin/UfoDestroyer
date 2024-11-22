@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgqe42fshrelj"]
+
+[ext_resource type="Script" path="res://Scripts/ufo.gd" id="1_jufqx"]
+[ext_resource type="SpriteFrames" uid="uid://fahmifjsrvqk" path="res://Sprites/Ufo.tres" id="2_imxvh"]
+
+[node name="Ufo" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+input_pickable = true
+script = ExtResource("1_jufqx")
+
+[node name="UfoAnimation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_imxvh")
+animation = &"Idle"
+
+[node name="Demage" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_imxvh")
+animation = &"Demage"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CatchCollision" type="CollisionPolygon2D" parent="Area2D"]
+visible = false
+position = Vector2(-2.48856, -2.85564)
+scale = Vector2(0.540221, 0.580752)
+polygon = PackedVector2Array(82, -10, 121, -3, 152, 27, 116, 54, 38, 63, -85, 64, -165, 33, -158, 15, -128, -5, -90, -12, -60, -35, -37, -47, 2, -49, 42, -39)
+
+[node name="RayCast2D" type="RayCast2D" parent="Area2D/CatchCollision"]
+position = Vector2(0, 69)
+target_position = Vector2(0, 1500)
+collision_mask = 7
+
+[node name="BulletCollision" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(-2.48856, -2.85564)
+scale = Vector2(0.540221, 0.580752)
+polygon = PackedVector2Array(82, -10, 121, -3, 152, 27, 116, 54, 38, 63, -85, 64, -165, 33, -158, 15, -128, -5, -90, -12, -60, -35, -37, -47, 2, -49, 42, -39)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

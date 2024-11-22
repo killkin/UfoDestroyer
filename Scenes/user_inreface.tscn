@@ -1,0 +1,128 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd507thom3kcr"]
+
+[ext_resource type="Script" path="res://Scripts/user_inreface.gd" id="1_rwl8a"]
+[ext_resource type="Texture2D" uid="uid://mtcwg7nbhwi8" path="res://Sprites/Return.png" id="2_55nod"]
+[ext_resource type="StyleBox" uid="uid://crjrj5xodo14f" path="res://Styles/UI_style.tres" id="3_fsvnb"]
+[ext_resource type="Texture2D" uid="uid://b4ixb45dth2db" path="res://Sprites/concept2.png" id="4_eyehv"]
+
+[sub_resource type="Animation" id="Animation_ermau"]
+resource_name = "Fade"
+length = 2.0
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.83333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 1.03333, 1.43333),
+"transitions": PackedFloat32Array(0.659754, 1.86607, 0.574349),
+"update": 2,
+"values": [Vector2(1, 1), Vector2(0.74, 0.74), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_omvkp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mj046"]
+_data = {
+"Fade": SubResource("Animation_ermau"),
+"RESET": SubResource("Animation_omvkp")
+}
+
+[node name="Interface" type="Panel" groups=["Interface"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rwl8a")
+
+[node name="RestartButton" type="Button" parent="."]
+modulate = Color(0, 0.708584, 0.796093, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -449.0
+offset_top = -246.0
+offset_right = -377.0
+offset_bottom = -174.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(34, 34)
+theme_override_icons/icon = ExtResource("2_55nod")
+theme_override_styles/focus = ExtResource("3_fsvnb")
+theme_override_styles/disabled_mirrored = ExtResource("3_fsvnb")
+theme_override_styles/disabled = ExtResource("3_fsvnb")
+theme_override_styles/hover_pressed_mirrored = ExtResource("3_fsvnb")
+theme_override_styles/hover_pressed = ExtResource("3_fsvnb")
+theme_override_styles/hover_mirrored = ExtResource("3_fsvnb")
+theme_override_styles/hover = ExtResource("3_fsvnb")
+theme_override_styles/pressed_mirrored = ExtResource("3_fsvnb")
+theme_override_styles/pressed = ExtResource("3_fsvnb")
+theme_override_styles/normal_mirrored = ExtResource("3_fsvnb")
+theme_override_styles/normal = ExtResource("3_fsvnb")
+icon = ExtResource("2_55nod")
+icon_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RestartButton"]
+libraries = {
+"": SubResource("AnimationLibrary_mj046")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_eyehv")
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]

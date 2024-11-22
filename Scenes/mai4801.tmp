@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwshujec3j6r8"]
+
+[ext_resource type="PackedScene" uid="uid://bd507thom3kcr" path="res://Scenes/user_inreface.tscn" id="1_co8a0"]
+[ext_resource type="PackedScene" uid="uid://ds0en2qut1r7l" path="res://Scenes/character.tscn" id="3_qrhxf"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_yv6oh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_61sln"]
+size = Vector2(1.00216, 2.46541)
+
+[node name="Main" type="Node2D"]
+
+[node name="UserInreface" parent="." instance=ExtResource("1_co8a0")]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_qrhxf")]
+position = Vector2(-74, 439)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(538, 543)
+scale = Vector2(1273.25, 79.5)
+mesh = SubResource("QuadMesh_yv6oh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MeshInstance2D"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeshInstance2D/StaticBody2D"]
+position = Vector2(0.00284705, 0.767296)
+shape = SubResource("RectangleShape2D_61sln")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(145, 385)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(31.91, 30.635, 0, 0, 0, 500)
